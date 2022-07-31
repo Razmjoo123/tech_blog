@@ -6,7 +6,7 @@ import 'package:tech_blog/view/my_cats.dart';
 import 'package:tech_blog/view/register_intro.dart';
 import 'package:tech_blog/view/splash_screen.dart';
 
-import 'my_colors.dart';
+import 'component/my_colors.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -105,7 +105,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const MyCats(),
+      home: const MainScreen(),
     );
   }
 }

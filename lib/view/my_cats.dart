@@ -3,12 +3,12 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:tech_blog/models/data_models.dart';
 import 'package:tech_blog/models/fake_data.dart';
-import 'package:tech_blog/my_component.dart';
-import 'package:tech_blog/my_strings.dart';
-import 'package:tech_blog/my_text_style.dart';
+import 'package:tech_blog/component/my_component.dart';
+import 'package:tech_blog/component/my_strings.dart';
+import 'package:tech_blog/component/my_text_style.dart';
 
 import '../gen/assets.gen.dart';
-import '../my_colors.dart';
+import '../component/my_colors.dart';
 
 class MyCats extends StatefulWidget {
   const MyCats({Key? key}) : super(key: key);
@@ -91,8 +91,7 @@ class _MyCatsState extends State<MyCats> {
                             setState(() {
                               if (!selectedTags.contains(tagList[index])) {
                                 //! اگر در لیست نبود اضافه کند
-                                selectedTags.add(
-                                    HashTagModel(title: tagList[index].title));
+                                selectedTags.add(tagList[index]);
                               }
                             });
                           },
