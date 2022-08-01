@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:tech_blog/component/my_component.dart';
+import 'package:tech_blog/component/my_strings.dart';
 import 'package:tech_blog/gen/assets.gen.dart';
 import 'package:tech_blog/component/my_colors.dart';
 import 'package:tech_blog/view/home_screen.dart';
 import 'package:tech_blog/view/profile_screen.dart';
-
-class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
-
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
+import 'package:url_launcher/url_launcher_string.dart';
 
 final GlobalKey<ScaffoldState> _key = GlobalKey();
 
-class _MainScreenState extends State<MainScreen> {
-  var selectedPageIndex = 0;
+class MainScreen extends StatelessWidget {
+  RxInt selectedPageIndex = 0.obs;
+
+  MainScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,9 @@ class _MainScreenState extends State<MainScreen> {
                     'اشتراک گذاری تک بلاگ',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  onTap: () {},
+                  onTap: () async {
+                    await Share.share(MyStrings.shareText);
+                  },
                 ),
                 const Divider(color: SolidColors.dividerColor),
                 ListTile(
@@ -61,7 +63,10 @@ class _MainScreenState extends State<MainScreen> {
                     'تک بلاگ در گیت هاب',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    launchUrlString('https://www.varzesh3.com/');
+                    // myLaunchUrl(MyStrings.techBlogGithubUrl);
+                  },
                 ),
                 const Divider(color: SolidColors.dividerColor),
               ],
@@ -111,21 +116,23 @@ class _MainScreenState extends State<MainScreen> {
         body: Stack(
           children: [
             Positioned.fill(
-              child: IndexedStack(
-                index: selectedPageIndex,
-                children: [
-                  HomeScreen(
-                      size: size, textTheme: textTheme, bodyMargin: bodyMargin),
-                  ProfileScreen(
-                      size: size, textTheme: textTheme, bodyMargin: bodyMargin)
-                ],
-              ),
+              child: Obx(() => IndexedStack(
+                    index: selectedPageIndex.value,
+                    children: [
+                      HomeScreen(
+                          size: size,
+                          textTheme: textTheme,
+                          bodyMargin: bodyMargin),
+                      ProfileScreen(
+                          size: size,
+                          textTheme: textTheme,
+                          bodyMargin: bodyMargin)
+                    ],
+                  )),
             ),
             //بانم نویگیتور
             ButtonNavigation(changeScreen: (int value) {
-              setState(() {
-                selectedPageIndex = value;
-              });
+              selectedPageIndex.value = value;
             }),
           ],
         ),

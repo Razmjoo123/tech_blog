@@ -1,5 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:tech_blog/component/my_strings.dart';
 import 'package:tech_blog/models/fake_data.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import '../gen/assets.gen.dart';
 import 'my_colors.dart';
 
@@ -66,5 +71,14 @@ class MainTags extends StatelessWidget {
         // ),
       ),
     );
+  }
+}
+
+//!فعلا این متد کار نمیکنه یعنی همیشه فالس میده
+myLaunchUrl(String url) async {
+  if (await canLaunchUrlString(url)) {
+    await launchUrlString(url);
+  } else {
+    log('Could not launch $url');
   }
 }
