@@ -1,4 +1,6 @@
 //* top Podcasts مدل مربوط به
+import 'package:tech_blog/component/api_constant.dart';
+
 class PodcastsModel {
   String? id;
   String? title;
@@ -19,10 +21,9 @@ class PodcastsModel {
   PodcastsModel.fromJson(Map<String, dynamic> element) {
     id = element['id'];
     title = element['title'];
-    poster = element['poster'];
+    poster = ApiConstant.hostDlUrl + element['poster'];
     publisher = element['publisher'];
     view = element['view'];
     createdAt = element['created_at'];
   }
 }
-

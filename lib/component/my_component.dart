@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:tech_blog/component/my_strings.dart';
 import 'package:tech_blog/models/fake_data.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -80,5 +81,20 @@ myLaunchUrl(String url) async {
     await launchUrlString(url);
   } else {
     log('Could not launch $url');
+  }
+}
+
+//! Loading SpinKit
+class Loading extends StatelessWidget {
+  const Loading({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const SpinKitFoldingCube(
+      color: SolidColors.primeryColor,
+      size: 32,
+    );
   }
 }
