@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:tech_blog/view/main_screen.dart';
+import 'package:get/get.dart';
+import 'package:tech_blog/view/main_screen/article_list_screen.dart';
+import 'package:tech_blog/view/main_screen/article_screen.dart';
+import 'package:tech_blog/view/main_screen/main_screen.dart';
 import 'package:tech_blog/view/my_cats.dart';
 import 'package:tech_blog/view/register_intro.dart';
 import 'package:tech_blog/view/splash_screen.dart';
@@ -25,17 +28,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // var textTheme = Theme.of(context).textTheme;
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Tech Blog',
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate
-      ],
-      supportedLocales: const [
-        Locale('fa', ''),
-      ],
+      locale: Locale('fa', 'IR'), //!راست چین کردن کل پروژه
       theme: ThemeData(
         fontFamily: 'dana',
         inputDecorationTheme: InputDecorationTheme(
@@ -105,7 +101,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: MainScreen(),
+      home: ArticelListScreen(), //MainScreen(),
     );
   }
 }

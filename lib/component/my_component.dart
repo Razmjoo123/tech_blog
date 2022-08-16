@@ -2,12 +2,15 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:tech_blog/component/my_strings.dart';
+import 'package:tech_blog/controller/home_screen_controller.dart';
 import 'package:tech_blog/models/fake_data.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../gen/assets.gen.dart';
 import 'my_colors.dart';
+import 'my_text_style.dart';
 
 class TechDivider extends StatelessWidget {
   const TechDivider({
@@ -45,28 +48,20 @@ class MainTags extends StatelessWidget {
           )),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: Stack(
+        child: Row(
           // child: Row(
           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Positioned(
-              right: 0,
-              top: 10,
-              child: Assets.icons.hashtagicon
-                  .image(color: Colors.white, width: 14),
-            ),
+            Assets.icons.hashtagicon.image(color: Colors.white, width: 14),
             //روش عادی
             // const ImageIcon(
             //   AssetImage('assets/icons/hashtagicon.png'),
             //   color: Colors.white,
             //   size: 14,
             // ),
-            Padding(
-              padding: const EdgeInsets.only(right: 15),
-              child: Center(
-                  child:
-                      Text(tagList[index].title, style: textTheme.headline2)),
-            ),
+            const SizedBox(width: 5),
+            Text(Get.find<HomeScreenController>().tagsList[index].title!,
+                style: textTheme.headline2),
           ],
         ),
         // ),
@@ -97,4 +92,41 @@ class Loading extends StatelessWidget {
       size: 32,
     );
   }
+}
+
+//* AppBarr
+PreferredSize appBar(String title) {
+  return PreferredSize(
+    preferredSize: const Size.fromHeight(80),
+    child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 22),
+      child: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(left: 8),
+            child: Center(
+              child: Text(
+                title,
+                style: appBarTextStyle,
+              ),
+            ),
+          )
+        ],
+        leading: Container(
+          height: 40,
+          width: 40,
+          decoration: BoxDecoration(
+            color: SolidColors.primeryColor.withAlpha(100),
+            shape: BoxShape.circle,
+          ),
+          child: const Icon(
+            Icons.keyboard_arrow_right,
+            size: 35,
+          ),
+        ),
+      ),
+    ),
+  );
 }

@@ -35,7 +35,9 @@ class HomeScreenController extends GetxController {
           PosterModel.fromJson(response.data['poster']); // چون خروجی یکی است
     }
 
-        loading.value = false;
-
+    response.data['tags'].forEach((element) {
+      tagsList.add(TagsModel.fromJson(element));
+    });
+    loading.value = false;
   }
 }

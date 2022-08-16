@@ -8,7 +8,7 @@ import 'package:tech_blog/models/fake_data.dart';
 import 'package:tech_blog/component/my_colors.dart';
 import 'package:tech_blog/component/my_strings.dart';
 
-import '../component/my_component.dart';
+import '../../component/my_component.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({
@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                 Poster(),
                 const SizedBox(height: 45),
                 //هشتگ ها
-                HomePageTagList(bodyMargin: bodyMargin, textTheme: textTheme),
+                Tags(),
                 const SizedBox(height: 35),
                 //آیکن و تیتر مشاهده داغ ترین نوشته ها
                 SeeMoreBlog(bodyMargin: bodyMargin, textTheme: textTheme),
@@ -345,6 +345,23 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+
+//! هشتگ ها
+  Widget Tags() {
+    return SizedBox(
+      height: 50,
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: homeScreenController.tagsList.length,
+          itemBuilder: ((context, index) {
+            return Padding(
+              padding:
+                  EdgeInsets.fromLTRB(8, 8, index == 0 ? bodyMargin : 8, 8),
+              child: MainTags(textTheme: textTheme, index: index),
+            );
+          })),
+    );
+  }
 }
 
 //*--------------------------------
@@ -416,35 +433,6 @@ class SeeMoreBlog extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-//!هشتگ ها
-class HomePageTagList extends StatelessWidget {
-  const HomePageTagList({
-    Key? key,
-    required this.bodyMargin,
-    required this.textTheme,
-  }) : super(key: key);
-
-  final double bodyMargin;
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: tagList.length,
-          itemBuilder: ((context, index) {
-            return Padding(
-              padding:
-                  EdgeInsets.fromLTRB(8, 8, index == 0 ? bodyMargin : 8, 8),
-              child: MainTags(textTheme: textTheme, index: index),
-            );
-          })),
     );
   }
 }
