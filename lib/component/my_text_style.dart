@@ -36,8 +36,18 @@ TextStyle hinTextStyle = const TextStyle(
     fontSize: 10,
     color: Color(0xFFDBDBDB),
     fontWeight: FontWeight.w700);
+TextStyle homeTaggsStyle = const TextStyle(
+    fontFamily: 'dana',
+    fontSize: 15,
+    color: Colors.white,
+    fontWeight: FontWeight.w300);
 TextStyle appBarTextStyle = const TextStyle(
     fontFamily: 'dana',
     fontSize: 16,
     color: SolidColors.primeryColor,
     fontWeight: FontWeight.w300);
+TextStyle topVisitedTitleTextStyle = const TextStyle(
+    fontFamily: 'dana',
+    fontSize: 14,
+    color: SolidColors.seeMore,
+    fontWeight: FontWeight.w700);

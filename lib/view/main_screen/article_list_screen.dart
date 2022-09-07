@@ -8,13 +8,16 @@ import 'package:get/get.dart';
 import 'package:tech_blog/component/my_colors.dart';
 import 'package:tech_blog/component/my_text_style.dart';
 import 'package:tech_blog/controller/article_controller.dart';
-import 'package:tech_blog/view/main_screen/article_screen.dart';
+import 'package:tech_blog/controller/single_article_controller.dart';
+import 'package:tech_blog/view/main_screen/single.dart';
 
 import '../../component/my_component.dart';
 
 class ArticelListScreen extends StatelessWidget {
   ArticelListScreen({super.key});
   ArticleController articleController = Get.put(ArticleController());
+  SingleArticleController singleArticleController =
+      Get.put(SingleArticleController());
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -32,10 +35,10 @@ class ArticelListScreen extends StatelessWidget {
                       margin: const EdgeInsets.only(bottom: 30),
                       child: InkWell(
                         onTap: () {
-                          print(articleController.articleList[index].id!);
-                          Get.to(ArticleScreen(
-                            id: articleController.articleList[index].id!,
-                          ));
+                          singleArticleController.id.value = int.parse(
+                              articleController.articleList[index].id
+                                  .toString());
+                          Get.to(SingleArticleScreen());
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,

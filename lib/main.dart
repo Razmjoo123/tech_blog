@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:tech_blog/view/main_screen/article_list_screen.dart';
-import 'package:tech_blog/view/main_screen/article_screen.dart';
+import 'package:tech_blog/view/main_screen/single.dart';
 import 'package:tech_blog/view/main_screen/main_screen.dart';
 import 'package:tech_blog/view/my_cats.dart';
 import 'package:tech_blog/view/register_intro.dart';
