@@ -51,3 +51,8 @@ TextStyle topVisitedTitleTextStyle = const TextStyle(
     fontSize: 14,
     color: SolidColors.seeMore,
     fontWeight: FontWeight.w700);
+TextStyle dateSingleScreenTextStyle = const TextStyle(
+    fontFamily: 'dana',
+    fontSize: 14,
+    color: SolidColors.seeMore,
+    fontWeight: FontWeight.w700);

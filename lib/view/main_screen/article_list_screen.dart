@@ -7,22 +7,22 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:tech_blog/component/my_colors.dart';
 import 'package:tech_blog/component/my_text_style.dart';
-import 'package:tech_blog/controller/article_controller.dart';
 import 'package:tech_blog/controller/single_article_controller.dart';
 import 'package:tech_blog/view/main_screen/single.dart';
 
 import '../../component/my_component.dart';
+import '../../controller/list_article_controller.dart';
 
 class ArticelListScreen extends StatelessWidget {
   ArticelListScreen({super.key});
-  ArticleController articleController = Get.put(ArticleController());
+  ListArticleController articleController = Get.put(ListArticleController());
   SingleArticleController singleArticleController =
       Get.put(SingleArticleController());
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: appBar('مقالات جدید'),
+        appBar: appBar(articleController.screenTitle.value),
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: SizedBox(

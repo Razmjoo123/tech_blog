@@ -6,13 +6,14 @@ import 'package:get/get.dart';
 import 'package:tech_blog/component/my_colors.dart';
 import 'package:tech_blog/component/my_component.dart';
 import 'package:tech_blog/component/my_text_style.dart';
+import 'package:tech_blog/controller/list_article_controller.dart';
 import 'package:tech_blog/controller/single_article_controller.dart';
 import 'package:tech_blog/gen/assets.gen.dart';
 import 'package:tech_blog/models/article_model.dart';
+import 'package:tech_blog/view/main_screen/article_list_screen.dart';
 
 class SingleArticleScreen extends StatelessWidget {
-  SingleArticleScreen(
-      ); //required this.article, required this.index
+  SingleArticleScreen(); //required this.article, required this.index
   SingleArticleController singleArticleController =
       Get.put(SingleArticleController());
 
@@ -23,114 +24,119 @@ class SingleArticleScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                children: [
-                  //poster
-                  Container(
-                    width: double.infinity,
-                    height: 250,
-                    //TODO forTest
-                    child: const Image(
-                      image: AssetImage('assets/images/poster_test.png'),
-                      fit: BoxFit.cover,
-                      // child: CachedNetworkImage(
-                      //   imageUrl: 'articleScreenController.articleList[0].image!',
+          child: Obx(
+            () => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Stack(
+                  children: [
+                    //poster
+                    Container(
+                      width: double.infinity,
+                      height: 250,
+                      //TODO forTest
+                      // child: const Image(
+                      //   image: AssetImage('assets/images/poster_test.png'),
                       //   fit: BoxFit.cover,
-                      //   placeholder: (context, url) => Loading(),
-                      // errorWidget: (context, url, error) => const Icon(
-                      //   Icons.image_not_supported_outlined,
-                      //   color: Colors.grey,
-                      //   size: 50,
-                      // ),
+                      child: CachedNetworkImage(
+                        imageUrl: singleArticleController
+                            .articleInfoModel.value.image!,
+                        imageBuilder: (context, imageProvider) =>
+                            Image(image: imageProvider),
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => Loading(),
+                        errorWidget: (context, url, error) => const Icon(
+                          Icons.image_not_supported_outlined,
+                          color: Colors.grey,
+                          size: 50,
+                        ),
+                      ),
+                      foregroundDecoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: GradiantColors.articleImageCoverGradiant,
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                            stops: [0.4, 0.9, 1]),
+                      ),
                     ),
-                    foregroundDecoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: GradiantColors.articleImageCoverGradiant,
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          stops: [0.4, 0.9, 1]),
-                    ),
-                  ),
 
-                  //ایکن های بالا
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 12, horizontal: 16),
-                    child: Row(
-                      children: [
-                        InkWell(
-                          onTap: () => Get.close(0),
-                          child: const Icon(
-                            Icons.arrow_back,
+                    //ایکن های بالا
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 16),
+                      child: Row(
+                        children: [
+                          InkWell(
+                            onTap: () => Get.close(0),
+                            child: const Icon(
+                              Icons.arrow_back,
+                              size: 28,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const Spacer(),
+                          const Icon(
+                            Icons.bookmark_outline_rounded,
                             size: 28,
                             color: Colors.white,
                           ),
-                        ),
-                        const Spacer(),
-                        const Icon(
-                          Icons.bookmark_outline_rounded,
-                          size: 28,
-                          color: Colors.white,
-                        ),
-                        const SizedBox(width: 15),
-                        const Icon(
-                          Icons.share,
-                          size: 28,
-                          color: Colors.white,
-                        ),
-                      ],
+                          const SizedBox(width: 15),
+                          const Icon(
+                            Icons.share,
+                            size: 28,
+                            color: Colors.white,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              //title
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
-                child: AutoSizeText(
-                  '۵ بازی مشابه Assassin’s Creed Valhalla که باید بازی کنید',
-                  // 'articleScreenController.articleList[0].title!',
-                  style: titlesTextStyle,
-                  maxFontSize: 16,
-                  maxLines: 2,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: const [
-                    Image(
-                      image: AssetImage('assets/images/avatar.png'),
-                      height: 50,
-                    ),
-                    SizedBox(width: 16),
-                    Text('فاطمه امیری'),
-                    SizedBox(width: 16),
-                    Text('تاریخ'),
                   ],
                 ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                child: HtmlWidget(
-                  '''
-<p >Color text and <span style="color:limegreen;">another color</span>, and now back to the same. Oh, and here's a <span style="background-color:PaleGreen;">different background color</span> just in case you need it!</p>
-''',
-                  textStyle: appBarTextStyle,
-                  enableCaching: true,
-                  onLoadingBuilder: (context, element, loadingProgress) =>
-                      const Loading(),
+                //title
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+                  child: AutoSizeText(
+                    singleArticleController.articleInfoModel.value.title!,
+                    // 'articleScreenController.articleList[0].title!',
+                    style: titlesTextStyle,
+                    maxFontSize: 16,
+                    maxLines: 2,
+                  ),
                 ),
-              ),
-              Tags(),
-              const SizedBox(height: 10),
-              TopVisited(),
-              const SizedBox(height: 10),
-            ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      const Image(
+                        image: AssetImage('assets/images/avatar.png'),
+                        height: 50,
+                      ),
+                      const SizedBox(width: 16),
+                      AutoSizeText(singleArticleController
+                          .articleInfoModel.value.author!),
+                      const SizedBox(width: 16),
+                      AutoSizeText(singleArticleController
+                          .articleInfoModel.value.createdAt!),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                  child: HtmlWidget(
+                    singleArticleController.articleInfoModel.value.content!,
+                    textStyle: appBarTextStyle,
+                    enableCaching: true,
+                    onLoadingBuilder: (context, element, loadingProgress) =>
+                        const Loading(),
+                  ),
+                ),
+                Tags(),
+                const SizedBox(height: 10),
+                TopVisited(),
+                const SizedBox(height: 10),
+              ],
+            ),
           ),
         ),
       ),
@@ -143,22 +149,32 @@ class SingleArticleScreen extends StatelessWidget {
       height: 50,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: 2,
+          itemCount: singleArticleController.tagsList.length,
           itemBuilder: ((context, index) {
-            return Padding(
-              padding: EdgeInsets.fromLTRB(8, 8, index == 0 ? 8 : 8, 8),
-              child: Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.grey[200],
-                ),
-                child: const Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      'مقاله',
-                      // style: articleAuthorTextStyle,
+            return GestureDetector(
+              onTap: () async {
+                var tagId = singleArticleController.tagsList[index].id!;
+                Get.find<ListArticleController>().screenTitle.value =
+                    'بر اساس ' + singleArticleController.tagsList[index].title!;
+                await Get.find<ListArticleController>()
+                    .getArticleListWithTagsId(tagId);
+                Get.to(ArticelListScreen());
+              },
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(8, 8, index == 0 ? 8 : 8, 8),
+                child: Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.grey[200],
+                  ),
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        singleArticleController.tagsList[index].title!,
+                        // style: articleAuthorTextStyle,
+                      ),
                     ),
                   ),
                 ),
